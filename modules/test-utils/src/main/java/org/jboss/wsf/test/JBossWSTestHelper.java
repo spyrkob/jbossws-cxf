@@ -74,7 +74,6 @@ public class JBossWSTestHelper
    private static final String testArchiveDir = System.getProperty(SYSPROP_TEST_ARCHIVE_DIRECTORY);
    private static final String testResourcesDir = System.getProperty(SYSPROP_TEST_RESOURCES_DIRECTORY);
    private static final String integrationTarget;
-   private static final String implInfo;
    private static final String serverHost = System.getProperty(SYSPROP_JBOSS_BIND_ADDRESS, "localhost");
 
    private static WeakHashMap<ClassLoader, Hashtable<String, String>> containerEnvs = new WeakHashMap<ClassLoader, Hashtable<String,String>>();
@@ -83,8 +82,6 @@ public class JBossWSTestHelper
       integrationTarget = System.getProperty(SYSPROP_JBOSSWS_INTEGRATION_TARGET);
       if (integrationTarget == null)
          throw new IllegalStateException("Cannot obtain system property: " + SYSPROP_JBOSSWS_INTEGRATION_TARGET);
-      Object obj = getImplementationObject();
-      implInfo = obj.getClass().getPackage().getName();
    }
 
    /** Deploy the given archive to the appclient.
@@ -115,27 +112,10 @@ public class JBossWSTestHelper
        return target.startsWith("wildfly10");
    }
 
+   @Deprecated
    public static boolean isIntegrationCXF()
    {
-      String vendor = getImplementationInfo();
-      return vendor.toLowerCase().indexOf("apache") != -1;
-   }
-
-   private static String getImplementationInfo()
-   {
-      return implInfo;
-   }
-
-   private static Object getImplementationObject()
-   {
-      Service service = Service.create(new QName("dummyService"));
-      Object obj = service.getHandlerResolver();
-      if (obj == null)
-      {
-         service.addPort(new QName("dummyPort"), SOAPBinding.SOAP11HTTP_BINDING, "http://dummy-address");
-         obj = service.createDispatch(new QName("dummyPort"), Source.class, Mode.PAYLOAD);
-      }
-      return obj;
+      return true;
    }
 
    /**
