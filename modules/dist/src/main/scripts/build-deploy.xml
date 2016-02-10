@@ -183,6 +183,7 @@
   	<copy toDir="${deploy.structure}/modules/system/layers/base">
       <fileset dir="${deploy.artifacts.dir}/modules/wildfly1000">
         <include name="**/jboss/as/webservices/main/module.xml"/>
+        <include name="**/jboss/as/jaxrs/main/module.xml"/>
       	<include name="**/jboss/as/webservices/server/integration/main/module.xml"/>
       </fileset>
     </copy>
@@ -201,12 +202,14 @@
     <copy todir="${wildfly1000.home}" overwrite="true" verbose="true">
       <fileset dir="${deploy.structure}">
         <exclude name="**/jboss/as/webservices/**/module.xml"/>
+        <exclude name="**/jboss/as/jaxrs/**/module.xml"/>
       </fileset>
     </copy>
     <!-- Install org/jboss/as/webservices module.xml separately since it needs to reference libs already on the AS -->
     <installModules targetDir="${wildfly1000.home}/modules/system/layers/base/">
       <fileset dir="${deploy.structure}/modules/system/layers/base">
         <include name="**/jboss/as/webservices/**/module.xml"/>
+        <include name="**/jboss/as/jaxrs/**/module.xml"/>
       </fileset>
     </installModules>
   </target>
@@ -288,7 +291,12 @@
     <attribute name="modules-jbossid"/>
     <sequential>
       <!-- libraries -->
-      <copy todir="@{targetdir}/org/jboss/ws/jaxws-client/main" flatten="false" overwrite="true">
+      <copy todir="@{targetdir}/javax/ws/rs/api/main" flatten="false" overwrite="true">
+        <fileset dir="@{thirdpartydir}/lib">
+          <include name="**/jaxrs-api.jar"/>
+        </fileset>
+      </copy>
+      <copy todir="@{targetdir}/org/jboss/ws/common-client/main" flatten="false" overwrite="true">
         <fileset dir="@{thirdpartydir}/lib">
           <include name="**/jbossws-cxf-client.jar"/>
           <include name="**/jbossws-cxf-jaspi.jar"/>
@@ -404,11 +412,17 @@
           <include name="**/jbossws-@{jbossid}-server-integration.jar"/>
         </fileset>
       </copy>
+      <copy todir="@{targetdir}/org/jboss/as/jaxrs/main" flatten="false" overwrite="true">
+        <fileset dir="@{thirdpartydir}/lib">
+          <include name="**/jbossws-@{jbossid}-jaxrs-server-integration.jar"/>
+        </fileset>
+      </copy>
       <!-- module.xml files -->
       <installModules targetDir="@{targetdir}">
         <fileset dir="@{thirdpartydir}/modules/@{modules-jbossid}">
           <include name="**/module.xml"/>
           <exclude name="**/jboss/as/webservices/**/module.xml"/>
+          <exclude name="**/jboss/as/jaxrs/**/module.xml"/>
         </fileset>
       </installModules>
     </sequential>
@@ -473,6 +487,7 @@
       <fileset dir="${jboss.modules}">
         <include name="**/org/jboss/as/webservices/main/jboss-as-webservices-server-integration*"/>
         <include name="**/org/jboss/as/webservices/main/wildfly-webservices-server-integration*"/>
+        <include name="**/org/jboss/as/jaxrs/main/wildfly-jaxrs*"/>
       </fileset>
     </delete>
   </target>
