@@ -32,7 +32,7 @@
   <description>JBossWS CXF stack</description>
 
   
-  <version>5.1.3.rest-SNAPSHOT</version>
+  <version>6.0.0-SNAPSHOT</version>
   
   <!-- Parent -->
   <parent>
@@ -63,9 +63,9 @@
   
   <!-- Properties -->
   <properties>
-    <jbossws.api.version>1.0.4.rest-SNAPSHOT</jbossws.api.version>
-    <jbossws.spi.version>3.1.1.rest-SNAPSHOT</jbossws.spi.version>
-    <jbossws.common.version>3.1.2-SNAPSHOT</jbossws.common.version>
+    <jbossws.api.version>1.1.0-SNAPSHOT</jbossws.api.version>
+    <jbossws.spi.version>4.0.0-SNAPSHOT</jbossws.spi.version>
+    <jbossws.common.version>4.0.0-SNAPSHOT</jbossws.common.version>
     <jbossws.common.tools.version>1.2.2.Final</jbossws.common.tools.version>
     <jbossws.wildfly901.version>5.1.4.rest-SNAPSHOT</jbossws.wildfly901.version>
     <jbossws.wildfly902.version>5.1.4.rest-SNAPSHOT</jbossws.wildfly902.version>
@@ -89,7 +89,7 @@
     <jaxb.api.version>1.0.4.Final</jaxb.api.version>
     <jaxb.impl.version>2.2.11.jbossorg-1</jaxb.impl.version>
     <jaxws.api.version>2.0.2.Final</jaxws.api.version>
-    <jaxrs.api.version>1.0.1.Final-SNAPSHOT</jaxrs.api.version>
+    <jaxrs.api.version>1.0.1.Alpha1-jbosswscxf</jaxrs.api.version>
     <jsr181.api.version>1.0-MR1</jsr181.api.version>
     <commons-beanutils.version>1.9.2</commons-beanutils.version>
     <commons-collections.version>3.2.1</commons-collections.version>
