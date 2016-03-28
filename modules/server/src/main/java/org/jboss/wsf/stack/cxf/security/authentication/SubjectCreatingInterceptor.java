@@ -119,7 +119,7 @@ public class SubjectCreatingInterceptor extends WSS4JInInterceptor
       }
    }
    
-   @Override
+   
    protected SecurityContext createSecurityContext(final Principal p) {
        Message msg = PhaseInterceptorChain.getCurrentMessage();
        if (msg == null) {
